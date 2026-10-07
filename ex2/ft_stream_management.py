@@ -24,7 +24,9 @@ def main() -> None:
         print(f"File '{filename}' closed.")
 
     except Exception as error:
-        print(f"Error opening file '{filename}': {error}")
+        print(
+                f"[STDERR] Error opening file '{filename}':"
+                f"{error}", file=sys.stderr)
         return
 
 # this is where the new stuff is added
@@ -41,7 +43,9 @@ def main() -> None:
     print(new_content, end="")
     print("---")
 
-    new_filename = input("Enter new file name (or empty): ")
+    print("Enter new file name (or empty): ", end="")
+    sys.stdout.flush()
+    new_filename = sys.stdin.readline().strip()
     if new_filename == "":
         print("Not saving data")
         return
@@ -55,7 +59,10 @@ def main() -> None:
         print(f"Data saved in file '{new_filename}'")
 
     except Exception as error:
-        print(f"Error saving file '{new_filename}: {error}")
+        print(
+                f"[STDERR]Error saving file '{new_filename}:"
+                f"{error}", file=sys.stderr
+                )
         print("Data not saved.")
 
 
